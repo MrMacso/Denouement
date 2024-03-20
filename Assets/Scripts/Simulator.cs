@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-//using System.Drawing;
 using UnityEngine;
 
 public class Simulator : MonoBehaviour
@@ -12,14 +11,16 @@ public class Simulator : MonoBehaviour
     [SerializeField] LevelData _levelData;
     [SerializeField] ClockUI _clockUI;
 
-    int _minTime = 0;
-    int _maxTime = 0;
-    int _currentTime = 0;
+    //these floats must be between 0 and 24
+    float _startingTime = 0f;
+    float _endTime = 0f;
+
     public bool Play = false;
     void Awake()
     {
-        SetTimePeriod(7, 11);
-        SetStage((int)STAGE.ONE);
+        SetFirstStage(13);
+        SetupClock();
+        SetStage((int)STAGE.ONE);  
     }
 
     void OnDrawGizmos()
@@ -71,11 +72,16 @@ public class Simulator : MonoBehaviour
         }
         Gizmos.DrawSphere(points[points.Count - 1], sphereScale);
     }
-    void SetTimePeriod(int min, int max) 
+    void Update()
     {
-        _minTime= min;
-        _maxTime= max;
-        _currentTime = _minTime;
+        if (_clockUI.GetTimeInHour() >= _endTime)
+            _clockUI.SetIsPaused(true);
+    }
+    void SetFirstStage(float min) 
+    {
+        _startingTime= min;
+        _endTime= _startingTime + 1f;
+        _clockUI.SetTime(_startingTime);
     }
     private void SetStage(int stageENum)
     {
@@ -84,18 +90,22 @@ public class Simulator : MonoBehaviour
             var stage = _levelData._puppetList[i]._stageDatas[stageENum]._stageList;
             _levelData._puppetList[i].Puppet.SetupDestinationElements(stage);
         }
-
+        //Debug purpose : refresh path for gizmos
+        CurrentStageGizmo = CurrentStage;
     }
+    // for button must stay public!
     public void TestButton()
     {
         if (CurrentStage > MAX_STAGE)
             return;
+
         if (!Play)
         {
             for (int i = 0; i < _levelData._puppetList.Count; i++)
             {
                 _levelData._puppetList[i].Puppet.SetActive(true);
             }
+            _clockUI.SetIsPaused(false);
             Play = true;
         }
         else
@@ -105,9 +115,9 @@ public class Simulator : MonoBehaviour
     }
     IEnumerator EnterNextStage()
     {
-        _currentTime++;
         CurrentStage++;
         SetStage(CurrentStage);
+        SetClock(false);
         for (int i = 0; i < _levelData._puppetList.Count; i++)
         {
             _levelData._puppetList[i].Puppet.SetDestinationIndex(-1);
@@ -115,6 +125,17 @@ public class Simulator : MonoBehaviour
             _levelData._puppetList[i].Puppet.SetActive(true);
         }   
         yield return new WaitForSeconds(25.0f);
+    }
+    void SetClock(bool isPaused) 
+    {
+        _clockUI.SetIsPaused(isPaused);
+        _endTime += 1f;
+    }
+
+    void SetupClock() 
+    {
+        _clockUI.SetTime(_startingTime);
+        _clockUI.SetIsPaused(true);
     }
     enum STAGE
     {

@@ -3,18 +3,18 @@ using TMPro;
 
 public class ClockUI : MonoBehaviour
 {
-    [Range(0,24)]
-    [SerializeField] float StartingTime;
+    //[Range(0,24)]
+    //[SerializeField] float StartingTime;
     [SerializeField] TMP_Text DigitalTMP;
 
     Transform _clockHourHandTransform;
     Transform _clockMinuteHandTransform;
 
-    float _currentTime;
+    float _currentTime = 0f;
 
     bool _isPaused = false;
 
-    const float INGAME_SECOND_MULTIPLIER = 600f;
+    const float INGAME_SECOND_MULTIPLIER = 180f;
     const float DERGREES_IN_CIRCLE = 360f;
     const float SECONDS_IN_DAY = 43200f;
     const float SECONDS_IN_HOUR = 3600f;
@@ -30,10 +30,6 @@ public class ClockUI : MonoBehaviour
         if (_clockMinuteHandTransform == null)
             Debug.LogWarning("_clockHourMinuteTransform is empty, give the desired object the name: MinuteHand");
         
-    }
-    void Start()
-    {
-        _currentTime = StartingTime * SECONDS_IN_HOUR;
     }
     void Update()
     {   
@@ -68,6 +64,15 @@ public class ClockUI : MonoBehaviour
     }
     public void SetTime(float currentTime)
     {
-        _currentTime = currentTime;
+        if (_currentTime < 0f || 24f < _currentTime )
+        {
+            Debug.Log("Desired time is not allowed, set the clockUIs _currentTime to a float between 0 and 24 ");
+            return ;
+        }
+        _currentTime = currentTime * SECONDS_IN_HOUR;
+    }
+    public float GetTimeInHour() 
+    {
+        return _currentTime / SECONDS_IN_HOUR;
     }
 }
