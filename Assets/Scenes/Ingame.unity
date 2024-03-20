@@ -1610,7 +1610,7 @@ MonoBehaviour:
         - {fileID: 790864402}
       - _stageList:
         - {fileID: 284837453}
-  _clockUI: {fileID: 0}
+  _clockUI: {fileID: 1055423006}
   Play: 0
 --- !u!4 &458987877
 Transform:
@@ -3377,7 +3377,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f79f0a1f541ead1478fa6770e5326a6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartingTime: 23.3
   DigitalTMP: {fileID: 962684649}
 --- !u!1 &1061436428
 GameObject:
@@ -7503,7 +7502,7 @@ PrefabInstance:
     - target: {fileID: 4278519119646117650, guid: fcd54a609d74e4f4fa8d39f70d3c2a37,
         type: 3}
       propertyPath: m_Materials.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4278519119646117650, guid: fcd54a609d74e4f4fa8d39f70d3c2a37,
         type: 3}
