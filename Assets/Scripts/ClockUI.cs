@@ -64,7 +64,7 @@ public class ClockUI : MonoBehaviour
     }
     public void SetTime(float currentTime)
     {
-        if (_currentTime < 0f || 24f < _currentTime )
+        if (currentTime < 0f || 24f < currentTime )
         {
             Debug.Log("Desired time is not allowed, set the clockUIs _currentTime to a float between 0 and 24 ");
             return ;
