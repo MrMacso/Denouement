@@ -1,10 +1,8 @@
-using Ink.Parsed;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InteligentWaypoint : MonoBehaviour
 {
+    [Header("Can stay empty")]
     [SerializeField] GameObject CollectableItem = null;
     [SerializeField] string PuppetName = string.Empty;
     [SerializeField] float Speed = 0f;
@@ -12,25 +10,39 @@ public class InteligentWaypoint : MonoBehaviour
     [SerializeField] bool IsDropItem = false;
 
 
-    //[SerializeField] bool IsAnimate = false;
+    [SerializeField] bool IsAnimate = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("CollisionHappened");
         if (other.gameObject.name == PuppetName)
         {
             var followPathAI = other.gameObject.GetComponent<FollowPathAI>();
-            if (Speed != 0f)
+            var animator = other.gameObject.GetComponent<Animator>();
+
+            if (followPathAI != null)
             {
-                followPathAI.SetMoveSpeed(Speed);
+                if (Speed != 0f)
+                {
+                    followPathAI.SetMoveSpeed(Speed);
+                }
+                if (IsCollectItem)
+                {
+                    followPathAI.AttachObject(CollectableItem);
+                }
+                if (IsDropItem)
+                {
+                    followPathAI.DropObject();
+                }
             }
-            if (IsCollectItem)
+            else
+                Debug.Log("Object doesn't have an FollowPathAI component!");
+
+            if (animator == null)
+                Debug.Log("Object doesn't have an Animator component!");
+
+            if (animator!= null && IsAnimate)
             {
-                followPathAI.AttachObject(CollectableItem);
-            }
-            if (IsDropItem)
-            {
-                followPathAI.DropObject();
+                animator.SetBool("IsActive", true);
             }
         }
     }

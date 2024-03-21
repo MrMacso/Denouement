@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 2012568886332538694}
   - component: {fileID: 1448617923527026937}
   - component: {fileID: 3604004204395690138}
+  - component: {fileID: 5872556543990669322}
+  - component: {fileID: 2088250369310606726}
   m_Layer: 6
   m_Name: Puppet
   m_TagString: Untagged
@@ -29,7 +31,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6013106848582486885}
   - {fileID: 6244671302463079189}
@@ -66,13 +68,48 @@ CapsuleCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.65
   m_Height: 1.72048
   m_Direction: 1
   m_Center: {x: 0, y: 0.84250736, z: 0}
+--- !u!114 &5872556543990669322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3792708970039608983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee3666e6cbcde14296aa7dbf3c1bf84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dialogueText: {fileID: 11400000, guid: a0fd71bd0e2b76142b74744bdf67a08a, type: 2}
+  _dialogueController: {fileID: 0}
+--- !u!95 &2088250369310606726
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3792708970039608983}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d9bbf0a7ad60eb94bb059e5f191b59ea, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3940883038126755710
 GameObject:
   m_ObjectHideFlags: 0
