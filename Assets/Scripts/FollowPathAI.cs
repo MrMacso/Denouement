@@ -5,8 +5,11 @@ using UnityEngine;
 public class FollowPathAI : MonoBehaviour
 {
     StateMachine _stateMachine;
+    [SerializeField] Transform HandTransform = null;
     public List<Transform> DestinationList { get; set; }
     public Transform Destination { get; set; }
+
+    GameObject HoldObject = null;
     int _destinationIndex = 0;
 
     float _moveSpeed = 0f; 
@@ -54,13 +57,17 @@ public class FollowPathAI : MonoBehaviour
         if(IsActive) 
         {
             _stateMachine.Tick();
+
+            
             MoveForward();
 
-            if(IsCheckingAngle)
+            if (IsCheckingAngle)
                 CheckLookAngle();
+            
         }
     }
     public void MoveForward() => transform.Translate(Vector3.forward * _moveSpeed * Time.deltaTime);
+
     public void SetMoveSpeed(float speed) => _moveSpeed = speed;
     public void SetActive(bool isActive) => IsActive = isActive;
     public void SetIsCheckingAngle(bool isChecking) => IsCheckingAngle = isChecking;
@@ -105,5 +112,23 @@ public class FollowPathAI : MonoBehaviour
             _destinationIndex++;  
             Destination = DestinationList[_destinationIndex];
         }
+    }
+
+    public void AttachObject(GameObject gameObject)
+    {
+        if (gameObject == null)
+            return;
+        else
+            HoldObject = gameObject;
+
+        HoldObject.transform.parent = HandTransform.transform;
+        HoldObject.transform.position = HandTransform.position;
+    }
+    public void DropObject()
+    {
+        if (HoldObject != null)
+            HoldObject.transform.parent = null;
+        else
+            return;
     }
 }
