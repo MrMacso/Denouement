@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[SelectionBase]
 public class FollowPathAI : MonoBehaviour
 {
     StateMachine _stateMachine;
