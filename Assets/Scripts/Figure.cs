@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Figure : NPC, ITalkable
+public class Figure : InteractableObject, ITalkable
 {
     [SerializeField] DialogueText _dialogueText;
     [SerializeField] DialogueController _dialogueController;
